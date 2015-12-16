@@ -1,0 +1,36 @@
+Quick and dirty twilio calls.
+
+0. Make a ~/.robofriend.json like this:
+
+{
+  "base": "BASEURL_WHERE_TWIMLS_LIVES",
+  "numbers": {
+      "name": "+15555555555",
+      "othername": "+16666666666"
+  }
+}
+
+1. Get a twilio account, you'll need to set the following in your bashrc. If it's not a paid account there will be an annoying message played before yours.
+
+export TWILIO_ACCOUNT_SID="YOURSID"
+export TWILIO_AUTH_TOKEN="YOURAUTHTOKEN"
+
+2. Add an authed number to twilio through their web ui. This number will need to be in your .robofriend.json too.
+
+3. Make a Twiml with an xml extension; Here is a really simple one:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Say>Hi John, this is a message from Bob Corsaro. Just wanted you to know I'm thinking of you and I wrote this script to tell you. You are sick AND tight and I'm glad to call you my friend.</Say>
+</Response>
+
+4. Upload it to the base url defined above.
+
+5. pip install twilio
+
+6. invoke call.py
+
+python call.py <appname> <fromname> <toname>
+
+appname maps to <base>/<appname>.xml, this is what twilio will fetch to get it's instructions.
+fromname and toname map to phone numbers in the .robofriend.json file.
